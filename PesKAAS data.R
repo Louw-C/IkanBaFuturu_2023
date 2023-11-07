@@ -1,6 +1,6 @@
 #Peskas basic graph showing 3 top taxa caught between 2018-2023
 
-require(ggplot)
+require(ggplot2)
 require(tidyverse)
 require(wesanderson)
 require(hrbrthemes)
@@ -13,12 +13,11 @@ Peskas_Futuru <- read.csv(file.choose())
 names(Peskas_Futuru)
 
 Peskas_Futuru %>% 
-  ggplot(aes(x = Taxa, y=Catch_t, color=as.factor(Year))) +
+  ggplot(aes(x = catch_name_en, y=landing_weight_kg, color=(region))) +
   geom_boxplot()+
-  facet_grid(Municipality~.)+
-  labs(y = "Annual catch (tonnes)", x="", title="Top three fish taxa recorded by PesKAAS from 2018 to 2023")+
+  labs(y = "Catch (kg)", x="", title="Average annual catch from 2018 to 2023")+
   theme(axis.text.x=element_text(angle=90,vjust=0.3),strip.text.y = element_text(angle = 0))+
   guides(color = guide_legend(title = "Year"))
 
-Peskas_Futuru$Municipality <- factor(Peskas_Futuru$Municipality, levels = c("Covalima","Ainaro","Manufahi"))
+Peskas_Futuru$region <- factor(Peskas_Futuru$region, levels = c("Covalima","Ainaro","Manufahi", "Viqueque"))
                                      
